@@ -13,39 +13,14 @@ class BottomNabBar extends StatefulWidget {
 }
 
 class _BottomNabBarState extends State<BottomNabBar> {
-  final List _children = [
-     HomeScreen(),
-    Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          ImageIcon(
-            AssetImage("assets/icons/Category.png"),
-            size: 18.0,
-            color: kLightColor,
-          ),
-          SizedBox(height: 18.0),
-          Text(
-            "Category",
-            style: TextStyle(
-                fontSize: 20.0,
-                color: kLightColor,
-                fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    ),
-    Container(
-      color: Colors.blue,
-    ),
-    Container(
-      color: Colors.red,
-    ),
+  final List<Widget> _children = [
+    const HomeScreen(),
+    emptyScreens("assets/icons/Category.png", "Category"),
+    emptyScreens("assets/icons/Search.png", "Search"),
+    emptyScreens("assets/icons/Profile.png", "Profile"),
   ];
 
-  get onTabTapped => null;
-
-  void onTapTapped(int index) {
+  void onTabTapped(int index) {
     setState(() {
       widget.currentIndex = index;
     });
@@ -58,7 +33,7 @@ class _BottomNabBarState extends State<BottomNabBar> {
       body: _children[widget.currentIndex],
       bottomNavigationBar: Container(
         height: 64.0,
-        margin: const EdgeInsets.all(24.0),
+        margin: const EdgeInsets.all(16.0),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16.0),
           child: BottomNavigationBar(
@@ -89,10 +64,34 @@ class _BottomNabBarState extends State<BottomNabBar> {
   BottomNavigationBarItem buildBottomNavigationBarItem(
       int index, String icon, String title) {
     return BottomNavigationBarItem(
-        icon: ImageIcon(
-          AssetImage(icon),
-          size: 20.0,
-        ),
-        label: "title");
+      icon: ImageIcon(
+        AssetImage(icon),
+        size: 20.0,
+      ),
+      label: "title",
+    );
   }
+}
+
+Widget emptyScreens(String image, String title) {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ImageIcon(
+          AssetImage(image),
+          size: 108.0,
+          color: kLightColor,
+        ),
+        const SizedBox(
+          height: 18.0,
+        ),
+        Text(
+          title,
+          style: const TextStyle(
+              fontSize: 20.0, color: kLightColor, fontWeight: FontWeight.bold),
+        ),
+      ],
+    ),
+  );
 }
